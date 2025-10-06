@@ -5,6 +5,24 @@
       "name": "Kami",
       "email": "jawad@gmail.com",
       "password": "jawad123"
+    },
+    {
+      "id": "e51fbf89-daf3-458f-bd9c-e74dd5f410cf",
+      "name": "Test User",
+      "email": "test2@example.com",
+      "password": "password123"
+    },
+    {
+      "id": "da62a27e-714f-4c1e-b53d-f4c3259e709a",
+      "name": "Test User",
+      "email": "jawad.com",
+      "password": "password123"
+    },
+    {
+      "id": "583bf4e5-2a26-406e-8a07-ccd45eee7f48",
+      "name": "Test User",
+      "email": "jawad@c.com",
+      "password": "password123"
     }
   ]
 }

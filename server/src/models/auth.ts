@@ -1,4 +1,4 @@
-import { db } from '../../db';
+import { db } from '../db';
 import { User } from '../types/auth';
 import { v4 as uuidv4 } from 'uuid';
 
