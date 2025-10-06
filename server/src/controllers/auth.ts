@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { RegisterRequest, LoginRequest, UpdateProfileRequest } from '../types/auth';
 
-const JWT_SECRET = 'your-secret-key'; // In production, use environment variable
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
 import * as authModel from '../models/auth';
 
