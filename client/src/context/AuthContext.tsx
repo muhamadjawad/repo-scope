@@ -6,13 +6,14 @@ import type { User } from '@/types';
 // import { User } from '@/types';
 
 interface AuthContextType {
-    user: User | null;
-    isAuthenticated: boolean;
-    isLoading: boolean;
-    error: string | null;
-    login: (credentials: { email: string; password: string }) => Promise<void>;
-    register: (credentials: { name: string; email: string; password: string }) => Promise<void>;
-    logout: () => void;
+  user: User | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  error: string | null;
+  login: (credentials: { email: string; password: string }) => Promise<void>;
+  register: (credentials: { name: string; email: string; password: string }) => Promise<void>;
+  logout: () => void;
+  updateProfile: (userData: Omit<User, 'id'>) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -41,7 +42,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         validateToken();
     }, []);
 
-    const login = async (credentials: { email: string; password: string }) => {
+    const updateProfile = async (userData: Omit<User, 'id'>) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await api.put('/auth/profile', userData);
+      setUser(response.data);
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Failed to update profile');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const login = async (credentials: { email: string; password: string }) => {
         setIsLoading(true);
         setError(null);
         try {
@@ -103,9 +118,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 isAuthenticated: !!user,
                 isLoading,
                 error,
-                login,
-                register,
-                logout,
+        login,
+        register,
+        logout,
+        updateProfile,
             }}
         >
             {children}
