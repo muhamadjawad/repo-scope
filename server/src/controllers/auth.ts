@@ -15,11 +15,10 @@ export async function register(req: Request<{}, {}, RegisterRequest>, res: Respo
     }
 
     const user = await authModel.createUser(name, email, password);
-    const token = jwt.sign({ userId: user.id }, JWT_SECRET);
 
     const { password: _, ...userWithoutPassword } = user;
     res.status(201).json({
-      token,
+      message: 'User registered successfully',
       user: userWithoutPassword
     });
   } catch (error) {
