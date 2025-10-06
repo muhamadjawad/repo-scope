@@ -1,0 +1,123 @@
+{
+    "projectStructure": {
+        "src": {
+            "controllers": {
+                "description": "Business logic and request handling",
+                "naming": "{feature}.ts (e.g., auth.ts, user.ts)",
+                "responsibilities": [
+                    "Handle HTTP requests",
+                    "Input validation",
+                    "Call appropriate model functions",
+                    "Format responses"
+                ]
+            },
+            "models": {
+                "description": "Data access and business rules",
+                "naming": "{feature}.ts (matching controller name)",
+                "responsibilities": [
+                    "Database operations",
+                    "Data validation",
+                    "Business rules implementation"
+                ]
+            },
+            "routes": {
+                "description": "API route definitions",
+                "naming": "{feature}.ts (matching controller name)",
+                "responsibilities": [
+                    "Define API endpoints",
+                    "Apply middleware",
+                    "Connect routes to controllers"
+                ]
+            },
+            "types": {
+                "description": "TypeScript type definitions",
+                "naming": "{feature}.ts (matching feature name)",
+                "responsibilities": [
+                    "Interface definitions",
+                    "Type declarations",
+                    "Request/Response types"
+                ]
+            },
+            "middleware": {
+                "description": "Express middleware functions",
+                "naming": "{feature}.ts (e.g., auth.ts, validation.ts)",
+                "responsibilities": [
+                    "Request preprocessing",
+                    "Authentication",
+                    "Authorization",
+                    "Common validations"
+                ]
+            }
+        },
+        "root": {
+            "db.ts": {
+                "description": "Database configuration and initialization",
+                "responsibilities": [
+                    "Database connection setup",
+                    "Schema definition",
+                    "Connection management"
+                ]
+            },
+            "index.ts": {
+                "description": "Application entry point",
+                "responsibilities": [
+                    "Express app initialization",
+                    "Global middleware setup",
+                    "Route registration",
+                    "Server startup"
+                ]
+            }
+        }
+    },
+    "apiStandards": {
+        "endpoints": {
+            "format": "/api/{feature}/{action}",
+            "methods": {
+                "GET": "Retrieve data",
+                "POST": "Create new data",
+                "PUT": "Update existing data",
+                "DELETE": "Remove data"
+            }
+        },
+        "responses": {
+            "success": {
+                "status": [
+                    200,
+                    201
+                ],
+                "format": {
+                    "data": "Requested/Created/Updated data",
+                    "message": "Optional success message"
+                }
+            },
+            "error": {
+                "status": [
+                    400,
+                    401,
+                    403,
+                    404,
+                    500
+                ],
+                "format": {
+                    "error": "Error message"
+                }
+            }
+        }
+    },
+    "typeNaming": {
+        "interfaces": {
+            "models": "Interface{ModelName} (e.g., User)",
+            "requests": "{Action}Request (e.g., RegisterRequest)",
+            "responses": "{Action}Response (e.g., AuthResponse)"
+        }
+    },
+    "environmentVariables": {
+        "required": [
+            "JWT_SECRET",
+            "PORT"
+        ],
+        "optional": [
+            "NODE_ENV"
+        ]
+    }
+}
