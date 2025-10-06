@@ -89,6 +89,13 @@
   background-color: var(--secondary);
 }
 
+.error-message {
+  color: var(--error);
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
 .switch-link {
   margin-top: 24px;
   font-size: 14px;

@@ -3,15 +3,17 @@ import { Link } from 'react-router-dom';
 import '@/theme/Auth.css';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
+import { useAuth } from '@/context/AuthContext';
 
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { register, isLoading, error } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ name, email, password });
+    await register({ name, email, password });
   };
 
   return (
@@ -27,6 +29,7 @@ const Register = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            disabled={isLoading}
           />
           <Input
             label="Email Address"
@@ -35,6 +38,7 @@ const Register = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            disabled={isLoading}
           />
           <Input
             label="Password"
@@ -43,8 +47,12 @@ const Register = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            disabled={isLoading}
           />
-          <Button type="submit">Sign Up</Button>
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? 'Creating Account...' : 'Sign Up'}
+          </Button>
+          {error && <p className="error-message">{error}</p>}
         </form>
         <p className="switch-link">
           Already have an account? <Link to="/login">Log In</Link>

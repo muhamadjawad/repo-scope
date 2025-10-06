@@ -53,6 +53,12 @@
       "name": "sasas--sa",
       "email": "jawad@gm.com",
       "password": "password123"
+    },
+    {
+      "id": "fea859e1-9a01-4cfa-81b7-04ee1760e6cd",
+      "name": "Ali",
+      "email": "ali@gmail.com",
+      "password": "password123"
     }
   ]
 }

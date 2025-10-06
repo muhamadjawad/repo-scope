@@ -26,7 +26,7 @@ export const githubLimiter = rateLimit({
 export const validateInput = (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ 
+        return res.status(400).json({
             status: 'error',
             errors: errors.array()
         });
@@ -36,7 +36,7 @@ export const validateInput = (req: Request, res: Response, next: NextFunction) =
 
 // CORS configuration
 export const corsOptions = {
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173' || 'http ://localhost:3000',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,

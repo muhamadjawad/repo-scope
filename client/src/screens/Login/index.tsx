@@ -3,14 +3,16 @@ import { Link } from 'react-router-dom';
 import '@/theme/Auth.css';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
+import { useAuth } from '@/context/AuthContext';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('jawad@c.com');
+  const [password, setPassword] = useState('password123');
+  const { login, isLoading, error } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ email, password });
+    await login({ email, password });
   };
 
   return (
@@ -26,6 +28,7 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            disabled={isLoading}
           />
           <Input
             label="Password"
@@ -34,8 +37,12 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            disabled={isLoading}
           />
-          <Button type="submit">Log In</Button>
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? 'Logging In...' : 'Log In'}
+          </Button>
+          {error && <p className="error-message">{error}</p>}
         </form>
         <p className="switch-link">
           Don't have an account? <Link to="/register">Sign Up</Link>

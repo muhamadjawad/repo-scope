@@ -34,7 +34,7 @@ export async function findUserById(id: string): Promise<User | undefined> {
 
 export async function updateUser(id: string, updates: Partial<User>): Promise<User> {
   if (!db.data) throw new Error('Database not initialized');
-  
+
   const userIndex = db.data.users.findIndex(user => user.id === id);
   if (userIndex === -1) {
     throw new Error('User not found');
