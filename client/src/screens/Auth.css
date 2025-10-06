@@ -1,0 +1,129 @@
+:root {
+  --primary: #e67e22;
+  --secondary: #d35400;
+  --background: #f0f2f5; /* A light grey background */
+  --card-background: #ffffff;
+  --text-primary: #2c3e50;
+  --text-secondary: #7f8c8d;
+  --border-color: #dfe4ea;
+  --error: #e74c3c;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--background);
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.auth-card {
+  background-color: var(--card-background);
+  padding: 48px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.auth-title {
+  margin-bottom: 16px;
+  color: var(--text-primary);
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.auth-subtitle {
+  margin-bottom: 40px;
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+.input-group {
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2);
+}
+
+.auth-button {
+  width: 100%;
+  padding: 16px;
+  background: var(--primary);
+  color: var(--card-background);
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 16px;
+}
+
+.auth-button:hover {
+  background-color: var(--secondary);
+}
+
+.switch-link {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.switch-link a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.switch-link a:hover {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .auth-card {
+    max-width: 90%;
+    padding: 32px;
+  }
+}
+
+@media (max-width: 540px) {
+  .auth-card {
+    padding: 32px 24px;
+    border: none;
+    box-shadow: none;
+    max-width: 100%;
+  }
+  .auth-container {
+    padding: 0;
+    align-items: flex-start;
+  }
+}

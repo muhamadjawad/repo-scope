@@ -2,33 +2,21 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '@/screens/Auth.css';
 
-const Register = () => {
-  const [name, setName] = useState('');
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ name, email, password });
+    console.log({ email, password });
   };
 
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h2 className="auth-title">Create an Account</h2>
-        <p className="auth-subtitle">Join us and start your journey today!</p>
+        <h2 className="auth-title">Welcome Back!</h2>
+        <p className="auth-subtitle">Sign in to continue to your account.</p>
         <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label htmlFor="name">Full Name</label>
-            <input
-              type="text"
-              id="name"
-              className="input-field"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
           <div className="input-group">
             <label htmlFor="email">Email Address</label>
             <input
@@ -52,15 +40,15 @@ const Register = () => {
             />
           </div>
           <button type="submit" className="auth-button">
-            Sign Up
+            Log In
           </button>
         </form>
         <p className="switch-link">
-          Already have an account? <Link to="/login">Log In</Link>
+          Don't have an account? <Link to="/register">Sign Up</Link>
         </p>
       </div>
     </div>
   );
 };
 
-export default Register;
+export default Login;
