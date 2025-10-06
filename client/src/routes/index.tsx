@@ -6,7 +6,6 @@ import { useAuth } from '@/context/AuthContext';
 
 const AppRoutes = () => {
   const { isAuthenticated, isLoading, user } = useAuth();
-  console.log('isAuthenticated', isAuthenticated, isLoading, user);
   if (isLoading) {
     return <div>Loading...</div>; // Replace with a spinner component later
   }

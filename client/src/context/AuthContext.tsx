@@ -63,16 +63,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             const response = await api.post('/auth/login', credentials);
             const { token, user } = response.data;
 
-            console.log('Login Response:', response.data); // Added for debugging
-            console.log('Token:', token); // Added for debugging
-
             if (token) {
                 Cookies.set('user-token', token, { expires: 7, path: '/' });
 
                 // Verify that the cookie was set
                 const savedToken = Cookies.get('user-token');
-                console.log('Token from cookie after setting:', savedToken);
-
+           
                 if (savedToken) {
                     setUser(user);
                     navigate('/');
@@ -85,7 +81,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             }
 
         } catch (err: any) {
-            console.log(err);
             setError(err.response?.data?.message || 'Failed to login');
         } finally {
             setIsLoading(false);
