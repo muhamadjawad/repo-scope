@@ -1,0 +1,141 @@
+{
+    "contexts": {
+        "AuthContext": {
+            "state": {
+                "user": {
+                    "type": "User | null",
+                    "default": "null",
+                    "properties": {
+                        "name": "string",
+                        "email": "string"
+                    }
+                },
+                "isAuthenticated": {
+                    "type": "boolean",
+                    "default": "false"
+                },
+                "isLoading": {
+                    "type": "boolean",
+                    "default": "false"
+                }
+            },
+            "actions": {
+                "login": {
+                    "params": {
+                        "email": "string",
+                        "password": "string"
+                    },
+                    "returns": "Promise<void>"
+                },
+                "register": {
+                    "params": {
+                        "name": "string",
+                        "email": "string",
+                        "password": "string"
+                    },
+                    "returns": "Promise<void>"
+                },
+                "logout": {
+                    "params": {},
+                    "returns": "void"
+                }
+            }
+        },
+        "ThemeContext": {
+            "state": {
+                "colors": {
+                    "type": "object",
+                    "properties": {
+                        "primary": {
+                            "main": "string",
+                            "light": "string",
+                            "dark": "string",
+                            "contrastText": "string"
+                        },
+                        "background": {
+                            "default": "string",
+                            "paper": "string"
+                        },
+                        "text": {
+                            "primary": "string",
+                            "secondary": "string",
+                            "disabled": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "UIContext": {
+            "state": {
+                "isLoading": {
+                    "type": "boolean",
+                    "default": "false"
+                },
+                "toast": {
+                    "type": "object",
+                    "properties": {
+                        "message": "string",
+                        "type": "success | error | info",
+                        "isVisible": "boolean"
+                    }
+                }
+            },
+            "actions": {
+                "showToast": {
+                    "params": {
+                        "message": "string",
+                        "type": "success | error | info"
+                    },
+                    "returns": "void"
+                },
+                "hideToast": {
+                    "params": {},
+                    "returns": "void"
+                },
+                "setLoading": {
+                    "params": {
+                        "loading": "boolean"
+                    },
+                    "returns": "void"
+                }
+            }
+        },
+        "GitHubContext": {
+            "state": {
+                "repositories": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": "number",
+                            "name": "string",
+                            "description": "string",
+                            "url": "string",
+                            "stars": "number"
+                        }
+                    }
+                },
+                "isLoading": {
+                    "type": "boolean",
+                    "default": "false"
+                },
+                "error": {
+                    "type": "string | null",
+                    "default": "null"
+                }
+            },
+            "actions": {
+                "fetchUserRepos": {
+                    "params": {
+                        "username": "string"
+                    },
+                    "returns": "Promise<void>"
+                },
+                "clearRepos": {
+                    "params": {},
+                    "returns": "void"
+                }
+            }
+        }
+    }
+}
