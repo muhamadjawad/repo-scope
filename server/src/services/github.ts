@@ -1,4 +1,10 @@
-import { GitHubRepository, GitHubUser, isGitHubApiResponse, isGitHubRepoApiResponse } from '../types/github';
+import {
+  GitHubRepository,
+  GitHubUser,
+  Pagination,
+  isGitHubApiResponse,
+  isGitHubRepoApiResponse
+} from '../types/github';
 
 const GITHUB_BASE_URL = process.env.GITHUB_BASE_URL || 'https://api.github.com';
 
@@ -32,11 +38,15 @@ function transformRepoData(repoData: any): GitHubRepository {
   };
 }
 
-export async function fetchGitHubData(username: string): Promise<{ user: GitHubUser; repos: GitHubRepository[] }> {
+export async function fetchGitHubData(
+  username: string,
+  page: number = 1,
+  limit: number = 10
+): Promise<{ user: GitHubUser; repos: GitHubRepository[]; pagination: Pagination }> {
   try {
     const [userResponse, reposResponse] = await Promise.all([
       fetch(`${GITHUB_BASE_URL}/users/${username}`),
-      fetch(`${GITHUB_BASE_URL}/users/${username}/repos`)
+      fetch(`${GITHUB_BASE_URL}/users/${username}/repos?page=${page}&per_page=${limit}`)
     ]);
 
     if (!userResponse.ok || !reposResponse.ok) {
@@ -51,7 +61,17 @@ export async function fetchGitHubData(username: string): Promise<{ user: GitHubU
     const user = transformUserData(userData);
     const repos = Array.isArray(reposData) ? reposData.map(transformRepoData) : [];
 
-    return { user, repos };
+    const totalRepos = userData.public_repos;
+    const totalPages = Math.ceil(totalRepos / limit);
+
+    const pagination: Pagination = {
+      currentPage: page,
+      limit,
+      totalPages,
+      totalRepos
+    };
+
+    return { user, repos, pagination };
   } catch (error) {
     if (error instanceof Error) {
       throw error;

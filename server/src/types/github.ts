@@ -37,6 +37,13 @@ export interface GitHubRepository {
   url: string;
 }
 
+export interface Pagination {
+  currentPage: number;
+  limit: number;
+  totalPages: number;
+  totalRepos: number;
+}
+
 // Type guards for API responses
 export function isGitHubApiResponse(data: any): data is GitHubApiResponse {
   return 'login' in data && 'avatar_url' in data;
