@@ -3,7 +3,7 @@ import { useAuth } from '@/context/AuthContext';
 import './Header.css';
 
 const Header = () => {
-  const { user, updateProfile } = useAuth();
+  const { user, updateProfile, logout } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedUser, setEditedUser] = useState(user);
@@ -49,6 +49,9 @@ const Header = () => {
                   </div>
                   <button className="edit-button" onClick={handleEdit}>
                     Edit Profile
+                  </button>
+                  <button className="logout-button" onClick={logout}>
+                    Logout
                   </button>
                 </>
               ) : (

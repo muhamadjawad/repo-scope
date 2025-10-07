@@ -5,9 +5,15 @@ import Home from '@/screens/Home';
 import { useAuth } from '@/context/AuthContext';
 
 const AppRoutes = () => {
-  const { isAuthenticated, isLoading, user } = useAuth();
-  if (isLoading) {
-    return <div>Loading...</div>; // Replace with a spinner component later
+  const { isAuthenticated, isLoading } = useAuth();
+
+  // The initial loading state is still useful to prevent a "flash" of the
+  // login page for already authenticated users. We will only show the
+  // loader on the initial check, not during login/register attempts.
+  const isInitialLoad = isLoading && !isAuthenticated;
+  
+  if (isInitialLoad) {
+    return <div>Loading...</div>; // Or a spinner component
   }
 
   return (

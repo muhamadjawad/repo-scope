@@ -81,7 +81,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             }
 
         } catch (err: any) {
-            setError(err.response?.data?.message || 'Failed to login');
+            console.log(err);
+            setError(err.response?.data?.error || 'Failed to login');
         } finally {
             setIsLoading(false);
         }
@@ -94,7 +95,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             await api.post('/auth/register', credentials);
             navigate('/login');
         } catch (err: any) {
-            setError(err.response?.data?.message || 'Failed to register');
+            setError(err.response?.data?.error || 'Failed to register');
         } finally {
             setIsLoading(false);
         }

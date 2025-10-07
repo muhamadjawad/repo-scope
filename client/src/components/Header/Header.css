@@ -119,3 +119,20 @@
 .edit-button:hover {
   background-color: var(--secondary);
 }
+
+.logout-button {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  background-color: var(--error);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #c0392b; /* A darker red */
+}
