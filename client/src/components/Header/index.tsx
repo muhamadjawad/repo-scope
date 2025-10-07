@@ -22,9 +22,16 @@ const Header = () => {
     setEditedUser(user);
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setEditedUser(prev => (prev ? { ...prev, [name]: value } : null));
+  };
+
   const handleSave = async () => {
+    if (!editedUser) return;
     try {
-      await updateProfile(editedUser);
+      const { id, ...profileData } = editedUser;
+      await updateProfile(profileData);
       setIsEditMode(false);
     } catch (error) {
       console.error('Failed to update profile:', error);
@@ -58,14 +65,16 @@ const Header = () => {
                 <div className="profile-edit">
                   <input
                     type="text"
+                    name="name"
                     value={editedUser?.name || ''}
-                    onChange={(e) => setEditedUser({ ...editedUser, name: e.target.value })}
+                    onChange={handleInputChange}
                     placeholder="Name"
                   />
                   <input
                     type="email"
+                    name="email"
                     value={editedUser?.email || ''}
-                    onChange={(e) => setEditedUser({ ...editedUser, email: e.target.value })}
+                    onChange={handleInputChange}
                     placeholder="Email"
                   />
                   <div className="edit-actions">

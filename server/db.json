@@ -77,6 +77,24 @@
       "name": "Tuaha",
       "email": "tuaha@gmail.com",
       "password": "Password123"
+    },
+    {
+      "id": "18b257da-9fd6-4044-8106-953706d4d32f",
+      "name": "ali",
+      "email": "123@gmail.com",
+      "password": "Password123"
+    },
+    {
+      "id": "96fe9fc3-b9f2-4dc0-b585-ec3c201faccb",
+      "name": "JAwad",
+      "email": "jawad@gmail2.com",
+      "password": "Password123"
+    },
+    {
+      "id": "61ad25f4-c191-4ed3-8b5c-452ccb991341",
+      "name": "Husaain Updated",
+      "email": "jawadTest@gmail.com",
+      "password": "Password123"
     }
   ]
 }
