@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from 'express';
 import authRoutes from './src/routes/auth';
 import githubRoutes from './src/routes/github';
@@ -14,7 +17,7 @@ async function startServer() {
 
         // Apply security middleware
         app.use(securityMiddleware);
-        
+
         // Body parser middleware
         app.use(express.json());
         app.use(express.urlencoded({ extended: true }));

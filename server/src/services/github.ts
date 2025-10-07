@@ -44,11 +44,14 @@ export async function fetchGitHubData(
   limit: number = 10
 ): Promise<{ user: GitHubUser; repos: GitHubRepository[]; pagination: Pagination }> {
   try {
+    const githubToken = process.env.GITHUB_TOKEN;
+    if (!githubToken) {
+      throw new Error('GITHUB_TOKEN is not set');
+    }
     const [userResponse, reposResponse] = await Promise.all([
-      fetch(`${GITHUB_BASE_URL}/users/${username}`),
-      fetch(`${GITHUB_BASE_URL}/users/${username}/repos?page=${page}&per_page=${limit}`)
+      fetch(`${GITHUB_BASE_URL}/users/${username}`, { headers: { Authorization: githubToken } }),
+      fetch(`${GITHUB_BASE_URL}/users/${username}/repos?page=${page}&per_page=${limit}`, { headers: { Authorization: githubToken } })
     ]);
-
     if (!userResponse.ok || !reposResponse.ok) {
       throw new Error('GitHub user not found');
     }

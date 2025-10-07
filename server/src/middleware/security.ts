@@ -15,7 +15,7 @@ export const limiter = rateLimit({
 
 // GitHub API specific rate limiter
 export const githubLimiter = rateLimit({
-    windowMs: 60 * 60 * 1000, // 1 hour
+    windowMs: 60 * 1000, // 1 hour
     max: 30, // Limit each IP to 30 GitHub API requests per hour
     message: 'GitHub API rate limit exceeded, please try again later.',
     standardHeaders: true,

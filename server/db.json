@@ -71,6 +71,12 @@
       "name": "Jawad",
       "email": "test@gmail.com",
       "password": "Password123"
+    },
+    {
+      "id": "a381b7f1-c19d-4566-8bef-c4746ac9ab0c",
+      "name": "Tuaha",
+      "email": "tuaha@gmail.com",
+      "password": "Password123"
     }
   ]
 }
