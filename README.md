@@ -17,6 +17,25 @@ Here are some screenshots of the application:
 | ![Edit Profile](client/src/assets/ss/editProfile.png) | ![Repo List](client/src/assets/ss/home1.png) | ![Cache](client/src/assets/ss/cache.png) |
 
 
+## Features
+
+### Client
+
+-   **Authentication**: User login and signup functionality.
+-   **Profile Management**: Users can view and update their profile information.
+-   **GitHub Integration**: View user details and a list of their repositories from GitHub.
+-   **Input Validation**: Forms include client-side validation for a better user experience.
+-   **Caching**: Caches GitHub repository data to reduce API calls and improve performance.
+
+### Server
+
+-   **User Authentication**: Secure user registration and login using JWT.
+-   **Input Validation**: Server-side validation for email, name, and password.
+-   **Security**: Includes Helmet for securing HTTP headers.
+-   **API Rate Limiting**: General rate limiting to prevent abuse and a specific limiter for the GitHub API.
+-   **CORS**: Configured to allow requests from the frontend application.
+
+
 ## Setup
 
 The project is divided into two main parts: `client` and `server`.
@@ -54,6 +73,18 @@ To run the server:
     ```bash
     npm run dev
     ```
+
+## Architecture Decisions
+
+### Client
+
+-   **TypeScript**: Chosen for its static type checking, which helps catch errors early in the development process and improves code quality and maintainability.
+-   **Vite**: Selected as the build tool for its fast development server and optimized build process, providing a lightweight and efficient development experience.
+
+### Server
+
+-   **LowDB**: A lightweight, JSON-based database was chosen because it is simple to set up and well-suited for the current scope of the application, which does not require a complex database solution.
+-   **MVC-like Structure**: The server follows a Model-View-Controller (MVC) architectural pattern (excluding the View layer) to separate concerns, resulting in a cleaner, more organized, and scalable codebase.
 
 ## API Endpoints
 
