@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
 export function validateInput(req: Request, res: Response, next: NextFunction) {
-    const { email, name } = req.body;
+    const { email, name, password } = req.body;
 
     // Email validation
     if (email) {
@@ -41,6 +41,24 @@ export function validateInput(req: Request, res: Response, next: NextFunction) {
         if (name.trim().length < 2) {
             return res.status(400).json({
                 error: 'Name must have at least 2 characters after trimming spaces.'
+            });
+        }
+    }
+
+    // Password validation for registration route
+    if (req.path === '/register' && password) {
+        // Check password length
+        if (password.length < 8) {
+            return res.status(400).json({
+                error: 'Password must be at least 8 characters long.'
+            });
+        }
+
+        // Check for at least one capital letter
+        const capitalLetterRegex = /[A-Z]/;
+        if (!capitalLetterRegex.test(password)) {
+            return res.status(400).json({
+                error: 'Password must contain at least one capital letter.'
             });
         }
     }

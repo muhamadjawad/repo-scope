@@ -65,6 +65,12 @@
       "name": "Front end",
       "email": "front@gmail.com",
       "password": "password123"
+    },
+    {
+      "id": "c41ce0b9-27a8-48ae-b1bb-25e0149d6bea",
+      "name": "Jawad",
+      "email": "test@gmail.com",
+      "password": "Password123"
     }
   ]
 }
