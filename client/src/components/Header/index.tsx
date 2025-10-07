@@ -34,7 +34,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-content">
-        <h1>User Management System</h1>
+        <h1>Repo Scope</h1>
         <div className="user-menu">
           <button className="user-icon" onClick={toggleDropdown}>
             {user?.name?.[0]?.toUpperCase() || 'U'}
