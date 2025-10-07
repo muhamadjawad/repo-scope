@@ -2,38 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Header from '@/components/Header';
 import api from '@/services/api';
+import type { GitHubResponse } from '@/types';
 import '@/theme/Home.css';
-
-interface GitHubUser {
-  username: string;
-  avatar: string;
-  bio: string;
-  url: string;
-  followersCount: number;
-  followingCount: number;
-  name: string;
-}
-
-interface GitHubRepo {
-  id: number;
-  name: string;
-  isPrivate: boolean;
-  description: string | null;
-  url: string;
-}
-
-interface Pagination {
-  currentPage: number;
-  totalPages: number;
-  limit: number;
-  totalRepos: number;
-}
-
-interface GitHubResponse {
-  user: GitHubUser;
-  repos: GitHubRepo[];
-  pagination: Pagination;
-}
 
 const Home = () => {
   const { user } = useAuth();
