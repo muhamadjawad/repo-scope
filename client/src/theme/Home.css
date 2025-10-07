@@ -206,6 +206,13 @@
   background-color: var(--secondary);
 }
 
+.loading-more {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .home-content {

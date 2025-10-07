@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Header from '@/components/Header';
 import api from '@/services/api';
@@ -22,15 +22,24 @@ interface GitHubRepo {
   url: string;
 }
 
+interface Pagination {
+  currentPage: number;
+  totalPages: number;
+  limit: number;
+  totalRepos: number;
+}
+
 interface GitHubResponse {
   user: GitHubUser;
   repos: GitHubRepo[];
+  pagination: Pagination;
 }
 
 const Home = () => {
   const { user } = useAuth();
   const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [githubData, setGithubData] = useState<GitHubResponse | null>(null);
 
@@ -42,7 +51,7 @@ const Home = () => {
     setGithubData(null);
 
     try {
-      const response = await api.get(`/github/user-repos/?username=${username}`);
+      const response = await api.get(`/github/user-repos/?username=${username}&page=1`);
       setGithubData(response.data);
     } catch (err: any) {
       setError(err.response?.data?.error || 'Failed to fetch GitHub data');
@@ -50,6 +59,41 @@ const Home = () => {
       setIsLoading(false);
     }
   };
+  
+  const loadMoreRepos = async () => {
+    if (!githubData || isFetchingMore || githubData.pagination.currentPage >= githubData.pagination.totalPages) {
+      return;
+    }
+
+    setIsFetchingMore(true);
+    const nextPage = githubData.pagination.currentPage + 1;
+
+    try {
+      const response = await api.get(`/github/user-repos/?username=${username}&page=${nextPage}`);
+      setGithubData(prevData => ({
+        ...prevData!,
+        repos: [...prevData!.repos, ...response.data.repos],
+        pagination: response.data.pagination,
+      }));
+    } catch (err: any) {
+      setError(err.response?.data?.error || 'Failed to fetch more repositories');
+    } finally {
+      setIsFetchingMore(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Trigger fetch when user is 100px from the bottom
+      if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 100) {
+        loadMoreRepos();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [githubData, isFetchingMore]);
+
 
   return (
     <div className="home">
@@ -70,11 +114,7 @@ const Home = () => {
           </div>
         </div>
 
-        {error && (
-          <div className="error-message">
-            {error}
-          </div>
-        )}
+        {error && <div className="error-message">{error}</div>}
 
         {githubData && (
           <div className="github-content">
@@ -111,6 +151,7 @@ const Home = () => {
                   </div>
                 ))}
               </div>
+              {isFetchingMore && <div className="loading-more">Loading more...</div>}
             </div>
           </div>
         )}
