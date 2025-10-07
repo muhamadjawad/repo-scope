@@ -56,7 +56,7 @@ const Home = () => {
             </div>
 
             <div className="repositories">
-              <h3>Repositories</h3>
+              <h3>{`Repositories (${githubData.pagination.totalRepos})`}</h3>
               <div className="repo-grid">
                 {githubData.repos.map(repo => (
                   <div key={repo.id} className="repo-card">

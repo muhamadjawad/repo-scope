@@ -203,6 +203,7 @@
 }
 
 .repo-button:hover {
+  color: white;
   background-color: var(--secondary);
 }
 
