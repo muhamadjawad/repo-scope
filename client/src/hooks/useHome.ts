@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import api from '@/services/api';
 import type { GitHubResponse } from '@/types';
 
@@ -8,9 +8,15 @@ export const useHome = () => {
   const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [githubData, setGithubData] = useState<GitHubResponse | null>(null);
+  const cache = useRef<Record<string, GitHubResponse>>({});
 
   const handleSearch = useCallback(async () => {
     if (!username.trim()) return;
+
+    if (cache.current[username]) {
+      setGithubData(cache.current[username]);
+      return;
+    }
 
     setIsLoading(true);
     setError(null);
@@ -18,9 +24,14 @@ export const useHome = () => {
 
     try {
       const response = await api.get(`/github/user-repos/?username=${username}&page=1`);
+      cache.current[username] = response.data;
       setGithubData(response.data);
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to fetch GitHub data');
+      if (err.response?.status === 429) {
+        setError('API rate limit exceeded. Please try again later.');
+      } else {
+        setError(err.response?.data?.error || 'Failed to fetch GitHub data');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -36,13 +47,19 @@ export const useHome = () => {
 
     try {
       const response = await api.get(`/github/user-repos/?username=${username}&page=${nextPage}`);
-      setGithubData(prevData => ({
-        ...prevData!,
-        repos: [...prevData!.repos, ...response.data.repos],
+      const updatedData = {
+        ...githubData,
+        repos: [...githubData.repos, ...response.data.repos],
         pagination: response.data.pagination,
-      }));
+      };
+      cache.current[username] = updatedData;
+      setGithubData(updatedData);
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to fetch more repositories');
+      if (err.response?.status === 429) {
+        setError('API rate limit exceeded. Please try again later.');
+      } else {
+        setError(err.response?.data?.error || 'Failed to fetch more repositories');
+      }
     } finally {
       setIsFetchingMore(false);
     }
