@@ -9,6 +9,7 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  isSubmitting: boolean;
   error: string | null;
   login: (credentials: { email: string; password: string }) => Promise<void>;
   register: (credentials: { name: string; email: string; password: string }) => Promise<void>;
@@ -21,6 +22,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
     useEffect(() => {
@@ -43,7 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     const updateProfile = async (userData: Omit<User, 'id'>) => {
-    setIsLoading(true);
+    setIsSubmitting(true);
     setError(null);
     try {
       const response = await api.put('/auth/profile', userData);
@@ -52,12 +54,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setError(err.response?.data?.message || 'Failed to update profile');
       throw err;
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
   const login = async (credentials: { email: string; password: string }) => {
-        setIsLoading(true);
+        setIsSubmitting(true);
         setError(null);
         try {
             const response = await api.post('/auth/login', credentials);
@@ -84,12 +86,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             console.log(err);
             setError(err.response?.data?.error || 'Failed to login');
         } finally {
-            setIsLoading(false);
+            setIsSubmitting(false);
         }
     };
 
     const register = async (credentials: { name: string; email: string; password: string }) => {
-        setIsLoading(true);
+        setIsSubmitting(true);
         setError(null);
         try {
             await api.post('/auth/register', credentials);
@@ -97,7 +99,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         } catch (err: any) {
             setError(err.response?.data?.error || 'Failed to register');
         } finally {
-            setIsLoading(false);
+            setIsSubmitting(false);
         }
     };
 
@@ -113,6 +115,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 user,
                 isAuthenticated: !!user,
                 isLoading,
+                isSubmitting,
                 error,
         login,
         register,

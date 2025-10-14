@@ -9,7 +9,7 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { register, isLoading, error } = useAuth();
+  const { register, isSubmitting, error } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,7 +29,7 @@ const Register = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            disabled={isLoading}
+            disabled={isSubmitting}
           />
           <Input
             label="Email Address"
@@ -38,7 +38,7 @@ const Register = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            disabled={isLoading}
+            disabled={isSubmitting}
           />
           <Input
             label="Password"
@@ -47,10 +47,10 @@ const Register = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            disabled={isLoading}
+            disabled={isSubmitting}
           />
-          <Button type="submit" disabled={isLoading}>
-            {isLoading ? 'Creating Account...' : 'Sign Up'}
+          <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Creating Account...' : 'Sign Up'}
           </Button>
           {error && <p className="error-message">{error}</p>}
         </form>

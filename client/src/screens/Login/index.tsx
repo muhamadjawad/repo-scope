@@ -8,7 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 const Login = () => {
   const [email, setEmail] = useState('jawad@c.com');
   const [password, setPassword] = useState('password123');
-  const { login, isLoading, error } = useAuth();
+  const { login, isSubmitting, error } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            disabled={isLoading}
+            disabled={isSubmitting}
           />
           <Input
             label="Password"
@@ -37,10 +37,10 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            disabled={isLoading}
+            disabled={isSubmitting}
           />
-          <Button type="submit" disabled={isLoading}>
-            {isLoading ? 'Logging In...' : 'Log In'}
+          <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Logging In...' : 'Log In'}
           </Button>
           {error && <p className="error-message">{error}</p>}
         </form>

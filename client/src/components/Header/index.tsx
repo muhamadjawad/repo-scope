@@ -3,7 +3,7 @@ import { useAuth } from '@/context/AuthContext';
 import './Header.css';
 
 const Header = () => {
-  const { user, updateProfile, logout } = useAuth();
+  const { user, updateProfile, logout, isSubmitting } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedUser, setEditedUser] = useState(user);
@@ -78,7 +78,9 @@ const Header = () => {
                     placeholder="Email"
                   />
                   <div className="edit-actions">
-                    <button onClick={handleSave}>Save</button>
+                    <button onClick={handleSave} disabled={isSubmitting}>
+                      {isSubmitting ? 'Saving...' : 'Save'}
+                    </button>
                     <button onClick={handleCancel}>Cancel</button>
                   </div>
                 </div>

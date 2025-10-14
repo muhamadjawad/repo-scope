@@ -95,6 +95,12 @@
       "name": "Husaain Updated",
       "email": "jawadTest@gmail.com",
       "password": "Password123"
+    },
+    {
+      "id": "a211a3af-ea4a-4737-bc87-48456b6f0fd5",
+      "name": "Jalil",
+      "email": "jalil@gmail.com",
+      "password": "Password123"
     }
   ]
 }
